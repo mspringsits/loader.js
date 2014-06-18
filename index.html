@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="libs/jquery-1.11.0.min.js"></script>
+    <script src="loader.js"></script>
+    <script>
+        $(document).ready(function() {
+            Loader.preload("no-display", 0.5);
+            Loader.main("text", "loading the awesome");
+            Loader.finish("fade");
+        });
+    </script>
+</head>
+<body>
+    <img src="http://www.eso.org/public/archives/images/wallpaper5/eso1205a.jpg" width="100%">
+</body>
+</html>
