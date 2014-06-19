@@ -28,6 +28,18 @@ var Loader = {
                         left: "0px"
                     }).appendTo($("body"));
                     break;
+                case 'custom-background':
+                    if(typeof(parameter)=='string') {
+                        $("<div>").attr('id', 'colorbox_position').css({
+                            width: $(document).width() + 'px',
+                            height: $(document).height() + 'px',
+                            backgroundColor: parameter,
+                            position: "absolute",
+                            top: "0px",
+                            left: "0px"
+                        }).appendTo($("body"));
+                    }
+                    break;
                 case 'alpha':
                     if((typeof parameter) == 'number')
                         $("body").css("opacity", parameter);
@@ -50,16 +62,19 @@ var Loader = {
                     var canvas = $("<canvas>").attr("width", ratio*2+15).attr("height", ratio*2+15).attr("id", "drawing_canvas");
                     canvas.css("top", ($(window).height()/2)-ratio+"px").css("left",($(window).width()/2)-ratio+"px").css("position", "absolute");
                     canvas.appendTo($("body"));
-                    setInterval(function() {
-                        ctx.clearRect(0, 0, ratio*2+15, ratio*2+15);
-                        drawCircle();
-                        drawPoint();
-                    },25);
 
                     var ctx = document.getElementById("drawing_canvas").getContext("2d");
                     var cx = ratio+5;
                     var cy = ratio+5;
                     var angle = 3 * Math.PI / 180;
+
+                    animate = function() {
+                        requestAnimationFrame(animate);
+                        ctx.clearRect(0, 0, ratio*2+15, ratio*2+15);
+                        drawCircle();
+                        drawPoint();
+                    }
+                    animate();
 
                     function drawCircle() {
                         ctx.beginPath();
@@ -84,7 +99,7 @@ var Loader = {
                 case "custom":
                     animation = "custom";
                     if(typeof(parameter)=='string') {
-                        $("<div>").attr("id", "custom_div").html(parameter).appendTo($("body"));
+                        $("<div>").attr("id", "custom_div").css("position", "absolute").css("top", "0px").css("left", "0px").html(parameter).appendTo($("body"));
                     }
                     break;
 
@@ -104,7 +119,7 @@ var Loader = {
                             ctx.font = "30px Arial";
                             ctx.fillText(parameter+dots[count%4],50,50);
                             count++;
-                        },500);
+                        }, 500);
                     }
                     break;
                 default:
@@ -119,8 +134,8 @@ var Loader = {
                 action();
             if(typeof(animation)!='undefined') {
                 if(animation=="standard")
-                    $("#drawing_canvas").hide();
-                else if(animation=="custom_div")
+                    $("#drawing_canvas").remove();
+                else if(animation=="custom")
                     $("#custom_div").remove();
             }
             switch(preloader) {
@@ -150,6 +165,17 @@ var Loader = {
                     }
                     else
                         $("#blackbox_position").remove();
+                case "custom-background":
+                    if((typeof action) == 'string') {
+                        if(action=="fade") {
+                            if(typeof(parameter)=='number')
+                                $("#colorbox_position").animate({opacity: 0}, parameter, function() { $("#colorbox_position").remove() });
+                            else
+                                $("#colorbox_position").animate({opacity: 0}, 1500, function() { $("#colorbox_position").remove(); });
+                        }
+                    }
+                    else
+                        $("#colorbox_position").remove();
                 case "alpha":
                     if((typeof action) == 'string') {
                         if(action=="fade") {
