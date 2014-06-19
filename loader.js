@@ -103,6 +103,32 @@ var Loader = {
                     }
                     break;
 
+                case "dots":
+                    animation="standard";
+                    var ratio = $(window).width()*0.10;
+                    var dot = ratio/5.5;
+                    var canvas = $("<canvas>").attr("width", ratio+5).attr("height", ratio).attr("id", "drawing_canvas");
+                    canvas.css("top", ($(window).height()/2)-ratio/2+"px").css("left",($(window).width()/2)-ratio/2+"px").css("position", "absolute");
+                    canvas.appendTo($("body"));
+
+                    var ctx = document.getElementById("drawing_canvas").getContext("2d");
+
+                    ctx.strokeStyle = "black";
+                    var count = 0;
+                    setInterval(function() {
+                        ctx.clearRect(0, 0, ratio, ratio);
+                        for(var i=0; i<4; i++) {
+                            ctx.fillStyle = ((count%4==i)?"#009999":"lightgray");
+                            console.log(ctx.fillStyle);
+                            ctx.beginPath();
+                            ctx.arc(dot/2+2+(i*dot*1.5),ratio/2,dot/2,0,2*Math.PI);
+                            ctx.fill();
+                            ctx.stroke();
+                        }
+                        count++;
+                    },300);
+                    break;
+
                 case "text":
                     animation = "standard";
                     if(typeof(parameter)=='string') {
