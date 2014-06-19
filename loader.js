@@ -129,6 +129,31 @@ var Loader = {
                     },300);
                     break;
 
+                case "spectrum":
+                    animation="standard";
+                    var ratio = $(window).width()*0.10;
+                    var canvas = $("<canvas>").attr("width", ratio+5).attr("height", ratio+5).attr("id", "drawing_canvas");
+                    canvas.css("top", ($(window).height()/2)-ratio/2+"px").css("left",($(window).width()/2)-ratio/2+"px").css("position", "absolute");
+                    canvas.appendTo($("body"));
+                    var ctx = document.getElementById("drawing_canvas").getContext("2d");
+
+                    ctx.strokeStyle = "black";
+                    ctx.fillStyle = "#009999";
+                    var cwidth = ratio/2;
+                    var change = -1;
+                    animate = function() {
+                        requestAnimationFrame(animate);
+                        ctx.clearRect(0, 0, ratio+5, ratio+5);
+                        change = ((cwidth<10)||(cwidth>ratio/2))?change*-1:change;
+                        ctx.beginPath();
+                        ctx.arc(ratio/2+2,ratio/2+2, cwidth,0,2*Math.PI);
+                        ctx.fill();
+                        ctx.stroke();
+                        cwidth = cwidth + change;
+                    }
+                    animate();
+                    break;
+
                 case "text":
                     animation = "standard";
                     if(typeof(parameter)=='string') {
