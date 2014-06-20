@@ -10,6 +10,7 @@ var Loader = {
             sets the alpha value of the page to the input value
      */
     preload: function(action, parameter) {
+        start_loading = new Date().getTime();
         if((typeof action) == 'function')
             action();
         if((typeof action) == 'string') {
@@ -65,38 +66,6 @@ var Loader = {
 
                     var ctx = document.getElementById("drawing_canvas").getContext("2d");
                     ctx.globalAlpha = 0.05;
-                    /*
-                    var cx = ratio+5;
-                    var cy = ratio+5;
-                    var angle = 3 * Math.PI / 180;
-
-                    animate = function() {
-                        requestAnimationFrame(animate);
-                        ctx.clearRect(0, 0, ratio*2+15, ratio*2+15);
-                        drawCircle();
-                        drawPoint();
-                    }
-                    animate();
-
-                    function drawCircle() {
-                        ctx.beginPath();
-                        ctx.strokeStyle = "black";
-                        ctx.arc(cx,cy,ratio,0,2*Math.PI);
-                        ctx.stroke();
-                    }
-
-                    function drawPoint() {
-                        angle += 4 * Math.PI / 180;
-                        var newX = cx + ratio * Math.cos(angle);
-                        var newY = cy + ratio * Math.sin(angle);
-                        ctx.fillStyle = "skyblue";
-                        ctx.strokeStyle = "lightgray";
-                        ctx.beginPath();
-                        ctx.arc(newX, newY, 5, 0, 2*Math.PI);
-                        ctx.fill();
-                        ctx.stroke();
-                    }
-                    */
 
                     var startpoint = 0;
                     animate = function() {
@@ -222,7 +191,6 @@ var Loader = {
                     }
                     break;
 
-                //case
                 default:
                     Loader.main("text", "loading your awesome content");
                     break;
@@ -236,14 +204,22 @@ var Loader = {
                 action();
             if(typeof(animation)!='undefined') {
                 if(animation=="standard") {
-                    $("#drawing_canvas").fadeToggle(1500, function() {
+                    if((new Date().getTime()-start_loading)>500) {
+                        $("#drawing_canvas").fadeToggle(1000, function() {
+                            $("#drawing_canvas").remove();
+                        });
+                    }
+                    else
                         $("#drawing_canvas").remove();
-                    });
                 }
                 else if(animation=="custom") {
-                    $("#custom_div").fadeToggle(1500, function() {
+                    if((new Date().getTime()-start_loading)>500) {
+                        $("#custom_div").fadeToggle(1000, function() {
+                            $("#custom_div").remove();
+                        });
+                    }
+                    else
                         $("#custom_div").remove();
-                    });
                 }
             }
             switch(preloader) {
