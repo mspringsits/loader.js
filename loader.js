@@ -154,6 +154,39 @@ var Loader = {
                     animate();
                     break;
 
+                case "futuristic":
+                    animation="standard";
+                    var ratio = $(window).width()*0.10;
+                    var canvas = $("<canvas>").attr("width", ratio+5).attr("height", ratio+5).attr("id", "drawing_canvas");
+                    canvas.css("top", ($(window).height()/2)-ratio/2+"px").css("left",($(window).width()/2)-ratio/2+"px").css("position", "absolute");
+                    canvas.appendTo($("body"));
+                    var ctx = document.getElementById("drawing_canvas").getContext("2d");
+
+                    ctx.strokeStyle = "black";
+                    ctx.lineWidth = 4;
+                    //ctx.fillStyle = "#009999";
+                    var startpoint1 = 0;
+                    var startpoint2 = 0;
+                    var startpoint3 = 0;
+                    animate = function() {
+                        requestAnimationFrame(animate);
+                        ctx.clearRect(0, 0, ratio+5, ratio+5);
+                        ctx.beginPath();
+                        ctx.arc(ratio/2+2,ratio/2+2, ratio/2, startpoint1,startpoint1+2*Math.PI/3);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(ratio/2+2,ratio/2+2, ratio*2/6, startpoint2,startpoint2+2*Math.PI/3);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(ratio/2+2,ratio/2+2, ratio*1/6, startpoint3,startpoint3+2*Math.PI/3);
+                        ctx.stroke();
+                        startpoint1 = startpoint1 + 0.1;
+                        startpoint2 = startpoint2 - 0.1;
+                        startpoint3 = startpoint3 + 0.1;
+                    }
+                    animate();
+                    break;
+
                 case "text":
                     animation = "standard";
                     if(typeof(parameter)=='string') {
