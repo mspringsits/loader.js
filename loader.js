@@ -42,9 +42,9 @@ var Loader = {
                     break;
                 case 'alpha':
                     if((typeof parameter) == 'number')
-                        $("body").css("opacity", parameter);
+                        $('body > :not(#drawing_canvas)').css("opacity", parameter);
                     else
-                        $("body").css("opacity", 0.5);
+                        $('body > :not(#drawing_canvas)').css("opacity", 0.5);
                 default:
                     break;
             }
@@ -58,12 +58,14 @@ var Loader = {
             switch(action) {
                 case "standard":
                     animation = "standard";
-                    var ratio = $(window).width()*0.04;
+                    var ratio = $(window).width()*0.1;
                     var canvas = $("<canvas>").attr("width", ratio*2+15).attr("height", ratio*2+15).attr("id", "drawing_canvas");
                     canvas.css("top", ($(window).height()/2)-ratio+"px").css("left",($(window).width()/2)-ratio+"px").css("position", "absolute");
                     canvas.appendTo($("body"));
 
                     var ctx = document.getElementById("drawing_canvas").getContext("2d");
+                    ctx.globalAlpha = 0.05;
+                    /*
                     var cx = ratio+5;
                     var cy = ratio+5;
                     var angle = 3 * Math.PI / 180;
@@ -94,6 +96,20 @@ var Loader = {
                         ctx.fill();
                         ctx.stroke();
                     }
+                    */
+
+                    var startpoint = 0;
+                    animate = function() {
+                        requestAnimationFrame(animate);
+                        ctx.clearRect(0, 0, ratio+5, ratio+5);
+                        for(var i=0; i<2; i=i+0.1) {
+                            ctx.beginPath();
+                            ctx.arc(ratio/2+2,ratio/2+2, ratio/2, startpoint+i,startpoint+2*Math.PI/3);
+                            ctx.stroke();
+                        }
+                        startpoint = startpoint + 0.1;
+                    }
+                    animate();
                     break;
 
                 case "custom":
@@ -164,7 +180,6 @@ var Loader = {
 
                     ctx.strokeStyle = "black";
                     ctx.lineWidth = 4;
-                    //ctx.fillStyle = "#009999";
                     var startpoint1 = 0;
                     var startpoint2 = 0;
                     var startpoint3 = 0;
@@ -206,7 +221,10 @@ var Loader = {
                         }, 500);
                     }
                     break;
+
+                //case
                 default:
+                    Loader.main("text", "loading your awesome content");
                     break;
             }
         }
@@ -217,10 +235,16 @@ var Loader = {
             if((typeof action) == 'function')
                 action();
             if(typeof(animation)!='undefined') {
-                if(animation=="standard")
-                    $("#drawing_canvas").remove();
-                else if(animation=="custom")
-                    $("#custom_div").remove();
+                if(animation=="standard") {
+                    $("#drawing_canvas").fadeToggle(1500, function() {
+                        $("#drawing_canvas").remove();
+                    });
+                }
+                else if(animation=="custom") {
+                    $("#custom_div").fadeToggle(1500, function() {
+                        $("#custom_div").remove();
+                    });
+                }
             }
             switch(preloader) {
                 case "no-display":
@@ -264,13 +288,13 @@ var Loader = {
                     if((typeof action) == 'string') {
                         if(action=="fade") {
                             if(typeof(parameter)=='number')
-                                $("body").animate({opacity: 1}, parameter);
+                                $('body > :not(#drawing_canvas)').animate({opacity: 1}, parameter);
                             else
-                                $("body").animate({opacity: 1}, 3000);
+                                $('body > :not(#drawing_canvas)').animate({opacity: 1}, 3000);
                         }
                     }
                     else
-                        $("body").css("opacity", 1);
+                        $('body > :not(#drawing_canvas)').css("opacity", 1);
                 default:
                     break;
             }
