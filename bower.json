@@ -1,10 +1,25 @@
 {
-    "name": "loader.js",
-    "version": "0.01",
-    "ignore": [
-        "libs"
-    ],
-    "dependencies": {
-        "jquery": ">=1.10.2"
-    }
+  "name": "y",
+  "version": "0.0.1",
+  "ignore": [
+    "libs",
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": ">=1.10.2"
+  },
+  "main": "loader.js",
+  "homepage": "https://github.com/mspringsits/loader.js",
+  "authors": [
+    "mspringsits <michael.springsits@gmail.com>"
+  ],
+  "description": "loader lib for html5",
+  "keywords": [
+    "loader"
+  ],
+  "license": "MIT"
 }
