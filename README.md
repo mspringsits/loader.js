@@ -16,7 +16,9 @@ if this was successfull, you can link the loaderjs-script like that<br>
 ```git clone https://github.com/mspringsits/loader.js.git```<br>
 after you have cloned the project to your disk, you can simply take the loader.js-file and copy it to your own project.<br>
 <sub>for more information, visit [git](https://github.com/git/git)</sub><br>
-**Attention: loaderjs requires JQuery!**
+**Attention: loaderjs requires JQuery!**<br>
+```<script src="bower_components/jquery/dist/jquery.min.js"></script>```<br>
+
 
 Usage
 -----
@@ -62,4 +64,28 @@ for testing purposes of the Loader.main()-method you can simply outcomment Loade
 
 Note that all three methods have to be used for a proper use!
 
+Examples
+--------
 
+**fancy dot loader with black background**
+```
+<script>
+    $(document).ready(function() {
+        Loader.preload("black-background");
+        Loader.main("dots");
+        Loader.finish();
+    });
+</script>
+```
+
+**futuristic spinner with no background**
+
+```
+<script>
+    $(document).ready(function() {
+        Loader.preload("no-display");
+        Loader.main("futuristic");
+        Loader.finish("fade", 1500);
+    });
+</script>
+```
