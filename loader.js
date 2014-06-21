@@ -28,6 +28,7 @@ var Loader = {
                         top: "0px",
                         left: "0px"
                     }).appendTo($("body"));
+                    $('body > :not(#blackbox_position)').hide();
                     break;
                 case 'custom-background':
                     if(typeof(parameter)=='string') {
@@ -104,7 +105,6 @@ var Loader = {
                         ctx.clearRect(0, 0, ratio, ratio);
                         for(var i=0; i<4; i++) {
                             ctx.fillStyle = ((count%4==i)?"#009999":"lightgray");
-                            console.log(ctx.fillStyle);
                             ctx.beginPath();
                             ctx.arc(dot/2+2+(i*dot*1.5),ratio/2,dot/2,0,2*Math.PI);
                             ctx.fill();
@@ -241,25 +241,37 @@ var Loader = {
                 case "black-background":
                     if((typeof action) == 'string') {
                         if(action=="fade") {
-                            if(typeof(parameter)=='number')
+                            if(typeof(parameter)=='number') {
                                 $("#blackbox_position").animate({opacity: 0}, parameter, function() { $("#blackbox_position").remove() });
-                            else
+                                $('body > :not(#blackbox_position)').show();
+                            }
+                            else {
                                 $("#blackbox_position").animate({opacity: 0}, 1500, function() { $("#blackbox_position").remove(); });
+                                $('body > :not(#blackbox_position)').show();
+                            }
                         }
                     }
-                    else
+                    else {
                         $("#blackbox_position").remove();
+                        $('body > :not(#blackbox_position)').show();
+                    }
                 case "custom-background":
                     if((typeof action) == 'string') {
                         if(action=="fade") {
-                            if(typeof(parameter)=='number')
+                            if(typeof(parameter)=='number') {
                                 $("#colorbox_position").animate({opacity: 0}, parameter, function() { $("#colorbox_position").remove() });
-                            else
+                                $('body > :not(#colorbox_position)').show();
+                            }
+                            else {
                                 $("#colorbox_position").animate({opacity: 0}, 1500, function() { $("#colorbox_position").remove(); });
+                                $('body > :not(#colorbox_position)').show();
+                            }
                         }
                     }
-                    else
+                    else {
                         $("#colorbox_position").remove();
+                        $('body > :not(#colorbox_position)').show();
+                    }
                 case "alpha":
                     if((typeof action) == 'string') {
                         if(action=="fade") {
