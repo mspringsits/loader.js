@@ -31,7 +31,7 @@ Generally there a three methods, that have to be called, that loaderjs works pro
 ####Loader.preload();####
 The preload method is used to handle background(graphically) while the page is loading.<br>
 Several backgrounds are implemented from begin, which can be given with a string
-parameters:<br>
+parameter:<br>
 preload([background], [parameter]);
 background(string):
 + "no-display": nothing is displayed, the page will be empty
