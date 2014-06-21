@@ -1,7 +1,7 @@
 loader.js
 =========
 
-little library for animations, which are displayed while a webpage is loading
+loaderjs is a little library for simple animations, which are displayed while a webpage is loading.
 
 Installation
 ------------
