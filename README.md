@@ -15,14 +15,16 @@ if this was successfull, you can link the loaderjs-script like that<br>
 **github clone**<br>
 ```git clone https://github.com/mspringsits/loader.js.git```<br>
 after you have cloned the project to your disk, you can simply take the loader.js-file and copy it to your own project.<br>
-<sub>for more information, visit [git](https://github.com/git/git)</sub>
+<sub>for more information, visit [git](https://github.com/git/git)</sub><br>
+**Attention: loaderjs requires JQuery!**
 
 Usage
 -----
 Generally there a three methods, that have to be called, that loaderjs works properly:
 >  + Loader.preload();
 >  + Loader.main();
->  + Loader.finish();
+>  + Loader.finish();<br>
+**All methods have to be given to make loaderjs work properly!**
 
 ####Loader.preload();####
 The preload method is used to handle background(graphically) while the page is loading.<br>
